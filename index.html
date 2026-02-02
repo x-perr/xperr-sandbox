@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vision Board - Kanban</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0d1117; color: #c9d1d9; height: 100vh; display: flex; flex-direction: column; }
+  header { padding: 16px 24px; background: #161b22; border-bottom: 1px solid #30363d; display: flex; align-items: center; gap: 12px; }
+  header h1 { font-size: 20px; font-weight: 600; }
+  header span { color: #8b949e; font-size: 14px; }
+  .board { flex: 1; overflow-x: auto; overflow-y: auto; padding: 16px; }
+  table.kanban { border-collapse: collapse; width: 100%; min-width: 1100px; }
+  table.kanban th { background: #161b22; color: #8b949e; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 12px; text-align: left; border: 1px solid #30363d; position: sticky; top: 0; z-index: 1; }
+  table.kanban th .count { background: #30363d; border-radius: 10px; padding: 1px 7px; margin-left: 6px; font-size: 11px; }
+  table.kanban td { border: 1px solid #30363d; padding: 8px; vertical-align: top; width: 14.28%; min-width: 150px; }
+  .swimlane-header { background: #161b22; font-weight: 600; font-size: 13px; padding: 8px 12px !important; }
+  .swimlane-header .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }
+  .card { background: #1c2128; border: 1px solid #30363d; border-radius: 6px; padding: 10px; margin-bottom: 6px; font-size: 13px; cursor: grab; transition: box-shadow 0.15s; }
+  .card:hover { box-shadow: 0 0 0 1px #58a6ff; }
+  .card:last-child { margin-bottom: 0; }
+  .card .card-id { color: #8b949e; font-size: 11px; margin-bottom: 4px; }
+  .card .card-title { color: #c9d1d9; line-height: 1.4; }
+  .card .card-meta { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 11px; color: #8b949e; }
+  .card .tag { padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; }
+  .tag-bug { background: #da363340; color: #f85149; border: 1px solid #da363360; }
+  .tag-feature { background: #23883040; color: #3fb950; border: 1px solid #23883060; }
+  .tag-chore { background: #58a6ff30; color: #58a6ff; border: 1px solid #58a6ff50; }
+  .avatar { width: 20px; height: 20px; border-radius: 50%; background: #30363d; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #c9d1d9; }
+  .lane-eng { border-left: 3px solid #58a6ff; }
+  .lane-design { border-left: 3px solid #d2a8ff; }
+  .lane-infra { border-left: 3px solid #f0883e; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Vision Board</h1>
+  <span>3 swimlanes &middot; 21 items</span>
+</header>
+
+<div class="board">
+<table class="kanban">
+  <thead>
+    <tr>
+      <th>Backlog <span class="count">5</span></th>
+      <th>Triaged <span class="count">3</span></th>
+      <th>Ready <span class="count">3</span></th>
+      <th>In Progress <span class="count">4</span></th>
+      <th>In Review <span class="count">3</span></th>
+      <th>Testing <span class="count">2</span></th>
+      <th>Done <span class="count">1</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Swimlane: Engineering -->
+    <tr>
+      <td colspan="7" class="swimlane-header"><span class="dot" style="background:#58a6ff"></span>Engineering</td>
+    </tr>
+    <tr>
+      <td class="lane-eng">
+        <div class="card"><div class="card-id">#101</div><div class="card-title">Add rate limiting to API gateway</div><div class="card-meta"><span class="tag tag-feature">feature</span><div class="avatar">KL</div></div></div>
+        <div class="card"><div class="card-id">#108</div><div class="card-title">Migrate auth tokens to JWT</div><div class="card-meta"><span class="tag tag-chore">chore</span></div></div>
+      </td>
+      <td class="lane-eng">
+        <div class="card"><div class="card-id">#102</div><div class="card-title">Fix session timeout on mobile</div><div class="card-meta"><span class="tag tag-bug">bug</span><div class="avatar">RW</div></div></div>
+      </td>
+      <td class="lane-eng">
+        <div class="card"><div class="card-id">#104</div><div class="card-title">Implement webhook retry logic</div><div class="card-meta"><span class="tag tag-feature">feature</span><div class="avatar">AM</div></div></div>
+      </td>
+      <td class="lane-eng">
+        <div class="card"><div class="card-id">#105</div><div class="card-title">Refactor query builder module</div><div class="card-meta"><span class="tag tag-chore">chore</span><div class="avatar">KL</div></div></div>
+        <div class="card"><div class="card-id">#112</div><div class="card-title">Add pagination to search results</div><div class="card-meta"><span class="tag tag-feature">feature</span><div class="avatar">RW</div></div></div>
+      </td>
+      <td class="lane-eng">
+        <div class="card"><div class="card-id">#106</div><div class="card-title">Fix race condition in queue worker</div><div class="card-meta"><span class="tag tag-bug">bug</span><div class="avatar">AM</div></div></div>
+      </td>
+      <td class="lane-eng">
+        <div class="card"><div class="card-id">#107</div><div class="card-title">Load test payment endpoint</div><div class="card-meta"><span class="tag tag-chore">chore</span><div class="avatar">KL</div></div></div>
+      </td>
+      <td class="lane-eng"></td>
+    </tr>
+
+    <!-- Swimlane: Design -->
+    <tr>
+      <td colspan="7" class="swimlane-header"><span class="dot" style="background:#d2a8ff"></span>Design</td>
+    </tr>
+    <tr>
+      <td class="lane-design">
+        <div class="card"><div class="card-id">#201</div><div class="card-title">Redesign settings page layout</div><div class="card-meta"><span class="tag tag-feature">feature</span></div></div>
+      </td>
+      <td class="lane-design">
+        <div class="card"><div class="card-id">#202</div><div class="card-title">Fix contrast issues in dark mode</div><div class="card-meta"><span class="tag tag-bug">bug</span><div class="avatar">JT</div></div></div>
+      </td>
+      <td class="lane-design">
+        <div class="card"><div class="card-id">#203</div><div class="card-title">Create empty state illustrations</div><div class="card-meta"><span class="tag tag-feature">feature</span><div class="avatar">SP</div></div></div>
+      </td>
+      <td class="lane-design">
+        <div class="card"><div class="card-id">#204</div><div class="card-title">Update component library tokens</div><div class="card-meta"><span class="tag tag-chore">chore</span><div class="avatar">JT</div></div></div>
+      </td>
+      <td class="lane-design">
+        <div class="card"><div class="card-id">#205</div><div class="card-title">Review onboarding flow mockups</div><div class="card-meta"><span class="tag tag-feature">feature</span><div class="avatar">SP</div></div></div>
+      </td>
+      <td class="lane-design"></td>
+      <td class="lane-design">
+        <div class="card"><div class="card-id">#206</div><div class="card-title">Ship new icon set to production</div><div class="card-meta"><span class="tag tag-chore">chore</span><div class="avatar">JT</div></div></div>
+      </td>
+    </tr>
+
+    <!-- Swimlane: Infrastructure -->
+    <tr>
+      <td colspan="7" class="swimlane-header"><span class="dot" style="background:#f0883e"></span>Infrastructure</td>
+    </tr>
+    <tr>
+      <td class="lane-infra">
+        <div class="card"><div class="card-id">#301</div><div class="card-title">Evaluate new CDN provider</div><div class="card-meta"><span class="tag tag-chore">chore</span></div></div>
+        <div class="card"><div class="card-id">#305</div><div class="card-title">Set up staging environment clone</div><div class="card-meta"><span class="tag tag-feature">feature</span></div></div>
+      </td>
+      <td class="lane-infra">
+        <div class="card"><div class="card-id">#302</div><div class="card-title">Upgrade Kubernetes to 1.29</div><div class="card-meta"><span class="tag tag-chore">chore</span><div class="avatar">DN</div></div></div>
+      </td>
+      <td class="lane-infra">
+        <div class="card"><div class="card-id">#303</div><div class="card-title">Configure alerting for DB latency</div><div class="card-meta"><span class="tag tag-feature">feature</span><div class="avatar">DN</div></div></div>
+      </td>
+      <td class="lane-infra">
+        <div class="card"><div class="card-id">#304</div><div class="card-title">Terraform module for new region</div><div class="card-meta"><span class="tag tag-feature">feature</span><div class="avatar">DN</div></div></div>
+      </td>
+      <td class="lane-infra">
+        <div class="card"><div class="card-id">#306</div><div class="card-title">Review CI pipeline config changes</div><div class="card-meta"><span class="tag tag-chore">chore</span><div class="avatar">DN</div></div></div>
+      </td>
+      <td class="lane-infra">
+        <div class="card"><div class="card-id">#307</div><div class="card-title">Validate disaster recovery runbook</div><div class="card-meta"><span class="tag tag-chore">chore</span><div class="avatar">DN</div></div></div>
+      </td>
+      <td class="lane-infra"></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</body>
+</html>
