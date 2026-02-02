@@ -49,14 +49,14 @@ export async function GET(request: NextRequest) {
   }
 
   // Get active blitz for this session to know which nodes are boosted
-  const { data: activeBlitz } = await supabase
+  const { data: blitzes } = await supabase
     .from("blitzes")
     .select("id, node_ids")
     .eq("session_id", sessionId)
     .eq("status", "active")
-    .limit(1)
-    .single();
+    .limit(1);
 
+  const activeBlitz = blitzes?.[0] ?? null;
   const blitzNodeIds = new Set<string>(activeBlitz?.node_ids ?? []);
 
   // Use the knowledge view which already includes dep_depth and downstream_count
